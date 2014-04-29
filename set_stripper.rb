@@ -1,6 +1,10 @@
 require 'sinatra'
 require_relative './extractor.rb'
 
+get '/'
+	return {running: "true"}.to_json
+end
+
 get '/strip_set/*' do
 	extractor = Extractor.new("/" + params[:splat].first)
 	extracted = extractor.extract
