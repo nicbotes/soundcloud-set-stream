@@ -1,7 +1,7 @@
 require 'sinatra'
 require_relative './extractor.rb'
 
-get '/'
+get '/' do
 	return {running: "true"}.to_json
 end
 
