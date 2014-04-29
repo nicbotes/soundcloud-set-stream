@@ -52,8 +52,6 @@ class Extractor
 		media_content.each do |f|
 			file.write(f[:api_call] + "\n")
 		end
-
-		return file
 	end
 
 end
