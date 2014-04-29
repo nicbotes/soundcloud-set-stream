@@ -1,6 +1,5 @@
 require 'httparty'
 require 'awesome_print'
-require 'nokogiri'
 require 'soundcloud'
 
 class Extractor
