@@ -5,15 +5,17 @@ get '/' do
 	return {running: "true"}.to_json
 end
 
-get '/strip_set/*' do
+get '/tracks/*' do
 	extractor = Extractor.new("/" + params[:splat].first)
 	extracted = extractor.extract
-	extracted.map{|a| a.api_call}.to_json
+	extracted.map{|a| a.title}.to_json
 end
 
-get '/save_strip_set/*' do
+get '/stream_tracks/*' do
 	extractor = Extractor.new("/" + params[:splat].first)
 	extracted = extractor.extract
-	extractor.write_to_file(extracted)
-	return "saved"
+
+	file_name = "./#{params[:splat].first.gsub('/','-')}" + ".strm"
+	@file = extractor.write_to_file(extracted, file_name)
+	send_file @file, :filename => file_name, :type => 'Application/octet-stream'
 end

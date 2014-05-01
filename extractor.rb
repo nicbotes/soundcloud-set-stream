@@ -37,7 +37,8 @@ class Extractor
 				OpenStruct.new(
 					url: base + a,
 					track_id: track.id,
-					api_call: api_call + track.id.to_s + consumer_key
+					api_call: api_call + track.id.to_s + consumer_key,
+					title: track.title
 					)
 			rescue
 				nil
@@ -46,11 +47,10 @@ class Extractor
 		formatted.compact
 	end
 
-	def write_to_file(media_content)
-		file = File.new("set_stream.strm", "w")
-		media_content.each do |f|
-			file.write(f[:api_call] + "\n")
-		end
+	def write_to_file(media_content, file_name)
+		file = File.new(file_name, "w")
+		File.open(file, 'w') { |file| file.write(media_content.map{|a| a[:api_call]}.join("\n").to_s) }
+		return file
 	end
 
 end
